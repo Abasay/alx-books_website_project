@@ -1,0 +1,165 @@
+.login_container {
+  /* display: flex; */
+}
+.login_container .create {
+  display: flex;
+  flex: 0.8;
+  justify-content: space-between;
+}
+
+.login_container .display-sidebar {
+  /* border: 2px solid black; */
+  display: none;
+  border-radius: 10px;
+  box-shadow: 10px 10px 5px rgb(189, 193, 194);
+}
+.login_container .create img {
+  /* flex: 0.8; */
+  margin-left: 0;
+  padding: 5px;
+}
+.login_container .create span {
+  display: flex;
+  margin-top: 10px;
+}
+.login_container .create span button {
+  margin-top: -10px;
+  margin-left: -5px;
+}
+
+.login_container .header {
+  margin-left: 10px;
+}
+
+.login_container .input_page {
+  display: flex;
+  flex-direction: column;
+  /* border: 2px solid black; */
+
+  height: 100vh;
+  margin: auto auto;
+  margin-top: 40px;
+  padding: 15px;
+  max-width: 450px;
+}
+
+.login_container .inputs .names {
+  display: flex;
+  padding: 10px;
+  width: 100%;
+}
+.login_container .inputs .names input:first-child {
+  padding: 10px;
+  margin: 10px;
+  margin-right: 0;
+  margin-left: 0;
+  border-radius: 5px;
+  width: 50%;
+  border: 1px solid black;
+}
+.login_container .inputs .names input:nth-child(2) {
+  padding: 10px;
+  margin: 10px;
+  margin-right: 0;
+  border-radius: 5px;
+  width: 50%;
+  border: 1px solid black;
+}
+.login_container .inputs .names input:focus,
+.login_container .inputs .others input:focus {
+  outline: none;
+  border: 2px solid rgb(234, 215, 215);
+  background-color: rgb(187, 234, 218);
+}
+.login_container .inputs .others input,
+.login_container .inputs .others p {
+  padding: 15px;
+  margin: 10px;
+  border-radius: 5px;
+  width: 100%;
+  border: 1px solid black;
+}
+.login_container .input_page .error p {
+  background-color: rgb(156, 12, 12);
+  color: #f0eded;
+  border-radius: 5px;
+  height: fit-content;
+  text-align: center;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+#btn {
+  background-color: rgb(3, 64, 3);
+  border: 0 solid;
+  color: #fff;
+  margin-bottom: 0;
+  cursor: pointer;
+}
+#text {
+  margin-top: 0;
+  border: 0 solid;
+}
+
+@media screen and (max-width: 600px) {
+  .login_container .inputs .names {
+    display: block;
+    width: 100%;
+  }
+  .login_container .inputs .names input:first-child {
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    width: 100%;
+    border: 1px solid black;
+    margin-left: 0;
+  }
+  .login_container .inputs .names input:nth-child(2) {
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    width: 100%;
+    border: 1px solid black;
+    margin-left: 0;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .login_container {
+    display: flex;
+    flex-direction: column;
+  }
+  .login_container .input_page {
+    margin-left: 50%;
+    position: relative;
+  }
+  .login_container .display-sidebar {
+    height: 100vh;
+    position: absolute;
+    display: block;
+
+    top: 0;
+    margin-left: 5px;
+    margin-top: 5px;
+    width: 40%;
+    border: 0.2px solid rgb(205, 202, 202);
+  }
+
+  .login_container .display-sidebar #img2,
+  .login_container .display-sidebar #img1 {
+    margin: auto auto;
+    padding: 25px;
+  }
+  .login_container .display-sidebar h1 {
+    margin-top: 40px;
+    padding: 15px;
+  }
+  .login_container .display-sidebar #img2 {
+    margin-top: 20px;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 1100px) {
+  .login_container .display-sidebar {
+    max-width: 450px;
+  }
+}

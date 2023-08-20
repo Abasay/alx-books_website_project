@@ -1,0 +1,140 @@
+.header .create {
+  display: flex;
+  flex: 0.8;
+  justify-content: space-between;
+  position: relative;
+}
+
+.header .create img {
+  /* flex: 0.8; */
+  /* position: absolute;
+  left: 0; */
+  margin-left: 0;
+  padding: 5px;
+}
+.header .create span {
+  display: flex;
+  margin-top: 30px;
+}
+.header .create span button {
+  margin-top: -17px;
+  margin-left: -5px;
+  color: green;
+}
+@media screen and (max-width: 900px) {
+  .header .create img {
+    position: relative;
+  }
+  .header .create span {
+    position: absolute;
+    bottom: 0;
+    right: 15%;
+    margin-top: 10px;
+  }
+  .header .create span button {
+    margin-top: -4px;
+  }
+}
+
+.headerLanding {
+  display: flex;
+  flex-direction: row;
+  position: fixed;
+  width: 100%;
+  background-color: #fff;
+  top: 0;
+  height: 70px;
+}
+.headerLanding .img-container {
+  /* display: flex; */
+  flex: 0.5;
+}
+.headerLanding .navs .navList {
+  flex: 0.5;
+  display: flex;
+  justify-content: space-around;
+}
+.headerLanding .navs .navList li {
+  margin: 15px;
+  margin-top: 30px;
+  list-style: none;
+  padding-left: 10px;
+  padding-right: 10px;
+  height: 30px;
+  cursor: pointer;
+  height: 30px;
+}
+.headerLanding .navs .navList li:hover {
+  border-radius: 5px;
+  background-color: rgb(240, 219, 193);
+}
+
+.headerLanding .menu {
+  display: none;
+  margin-top: 30px;
+  cursor: pointer;
+}
+.headerLanding .navs .navList #menu {
+  margin-top: 30px;
+  width: 0;
+  margin-top: 50px;
+  margin-left: 30%;
+  display: none;
+}
+
+.headerLanding .navs .navList .logout {
+  position: absolute;
+  right: 5px;
+}
+@media screen and (max-width: 700px) {
+  .headerLanding .img-container {
+    flex: 0.9;
+    position: relative;
+  }
+  .headerLanding .navs .navList li {
+    margin: 10px;
+  }
+  .headerLanding .navs .navList .logout {
+    position: relative;
+  }
+  .headerLanding .navs .navList {
+    height: 300px;
+    display: none;
+    border-radius: 10px;
+    /* margin-left: 0; */
+    flex-direction: column;
+  }
+  .headerLanding .navs .navList .first {
+    /* display: inline-block;
+    margin-top: 100px;
+    margin-bottom: 0;
+    width: 100%; */
+  }
+
+  .headerLanding .menu {
+    display: flex;
+    position: absolute;
+    right: 20px;
+    margin-bottom: 10px;
+    flex: 0.1;
+    position: fixed;
+  }
+  .headerLanding .navs .navList #menu {
+    display: block;
+  }
+}
+
+.headerLanding .navs .slidebar {
+  width: 100%;
+
+  display: block;
+  background-color: #fff;
+  margin-top: -25px;
+  margin-right: 40px;
+  left: 60%;
+  position: fixed;
+}
+
+.headerLanding .navs .navList #menu:hover {
+  background-color: #fff;
+}
