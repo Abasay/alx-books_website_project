@@ -34,7 +34,7 @@ export const ContextProvider = ({ children }) => {
     setLoader(true)
     try {
       const url =
-        'https://api.nytimes.com/svc/books/v3/lists//full-overview.json?&api-key=RUnW3vOenNDvoKKbJ3rMBmGTy6prxnV1'
+        'https://api.nytimes.com/svc/books/v3/lists//full-overview.json?&api-key={API-KEY}'
       const options = {
         method: 'GET',
         headers: {
