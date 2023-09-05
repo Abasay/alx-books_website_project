@@ -1,12 +1,20 @@
 #!/usr/bin/python3
-
+from sqlalchemy import Column, String, DateTime
+from sqlalchemy.ext.declarative import declarative_base
 import uuid
 from datetime import datetime
 from models import storage
 """Base model that all other classes imherit from"""
 
-class BaseModel:
+Base = declarative_base()
+
+class BaseModel(Base):
     """class containing the common attributes of other classes"""
+    __abstract__ = True
+    
+    id = Column(String(60), nullable=False, primary_key=True)
+    created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
+
     def __init__(self, *args, **kwargs):
         """initialises the class"""
         if kwargs is not None and kwargs != {}:
