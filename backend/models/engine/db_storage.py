@@ -4,17 +4,18 @@
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy import create_engine
 import os
-from models.basemodel import Base
+
+
 class DBStorage:
     """Database stoarge class for our book app"""
     __engine = None
     __session = None
 
     def __init__(self):
-        user = alx
-        passwd = alx
-        host = alx
-        database = book_app
+        user = 'mike'
+        passwd = 'alx'
+        host = 'localhost'
+        database = 'book_rec_db'
         self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'
                                       .format(user, passwd, host, database), pool_pre_ping=True)
 
@@ -24,7 +25,7 @@ class DBStorage:
             self.reload()
         objects = {}
         if isinstance(cls, str):
-            Class = classes.get(cls, None)
+            Class = self.classes().get(cls, None)
         if Class:
             for obj in self.__sessíon.query(Class):
                 objects[obj.__class__.__name__ + "-" + obj.id] = obj
@@ -58,3 +59,9 @@ class DBStorage:
     def close(self):
         """Dispose of current session if active"""
         self.__session.remove()
+    def classes(self):
+        """ returns the classws dict"""
+        from models.book import Book
+        from models.user import User
+        classes = {"User": User, 'Book': Book}
+        return classes

@@ -9,7 +9,7 @@ user_favourite_books = Table('user_favourite_books', Base.metadata,
                              extend_existing=True
 )
 
-class User(BaseModel):
+class User(BaseModel, Base):
     """User class that inherits from basemodel"""
     __tablename__ = "users"
     

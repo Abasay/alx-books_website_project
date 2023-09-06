@@ -4,7 +4,7 @@ from sqlalchemy import Column, Integer, String, Text
 from models.basemodel import BaseModel, Base
 from sqlalchemy.orm import relationship
 from models.user import user_favourite_books
-class Book(BaseModel):
+class Book(BaseModel, Base):
     """inherits from basemodel"""
     __tablename__ = "books"
     
