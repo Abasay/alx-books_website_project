@@ -4,7 +4,6 @@ from sqlalchemy.ext.declarative import declarative_base
 import uuid
 from datetime import datetime
 """Base model that all other classes imherit from"""
-from models import storage
 Base = declarative_base()
 
 
@@ -32,11 +31,13 @@ class BaseModel():
 
     def save(self):
         """saves the instance to the database"""
+        from models import storage
         storage.new(self)
         storage.save()
 
     def delete(self):
         """deletes an instance from the database"""
+        from models import storage
         storage.delete()
 
     def to_dict(self):

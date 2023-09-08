@@ -8,11 +8,11 @@ class Book(BaseModel, Base):
     """inherits from basemodel"""
     __tablename__ = "books"
     
-    title = Column(String(255), nullable=False)
-    genre = Column(String(255), nullable=False)
-    cover_img = Column(String(255), nullable=False)
+    title = Column(String(255))
+    genre = Column(String(255))
+    cover_img = Column(String(255))
     desription = Column(Text)
-    read_link = Column(String(255), nullable=False)
-    author = Column(String(255), nullable=False)
+    read_link = Column(String(255))
+    author = Column(String(255))
     no_of_pages = Column(Integer)
     favourited_by = relationship('User', secondary=user_favourite_books, back_populates='favourite_books')

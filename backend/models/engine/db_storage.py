@@ -4,6 +4,7 @@
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy import create_engine
 import os
+from models.basemodel import Base
 
 
 class DBStorage:
@@ -24,14 +25,15 @@ class DBStorage:
         if not self.__session:
             self.reload()
         objects = {}
+        cl = None
         if isinstance(cls, str):
-            Class = self.classes().get(cls, None)
-        if Class:
+            cl = self.classes().get(cls, None)
+        if cl:
             for obj in self.__sessíon.query(Class):
                 objects[obj.__class__.__name__ + "-" + obj.id] = obj
         else:
-            for cls in classes.values():
-                for obj in self.__sessíon.query(cls):
+            for cls in self.classes().values():
+                for obj in self.__session.query(cls):
                     objects[obj.__class__.__name__ + "-" + obj.id] = obj
         return objects
     

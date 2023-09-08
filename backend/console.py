@@ -1,7 +1,6 @@
 import cmd
 from models import storage
 from models.basemodel import BaseModel
-
 class commandline(cmd.Cmd):
     """ command line to test the backend that inherits from Cmd"""
     prompt = "(#command#)"

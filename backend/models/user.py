@@ -4,8 +4,8 @@ from sqlalchemy import Column, String, Integer, Table, ForeignKey
 from sqlalchemy.orm import relationship
 """The user class"""
 user_favourite_books = Table('user_favourite_books', Base.metadata,
-                            Column('user_id', Integer, ForeignKey('users.id')),
-                             Column('book_id', Integer, ForeignKey('books.id')),
+                            Column('user_id', String(60), ForeignKey('users.id')),
+                             Column('book_id', String(60), ForeignKey('books.id')),
                              extend_existing=True
 )
 
