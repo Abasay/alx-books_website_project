@@ -5,6 +5,8 @@ import illustration from '../illustration_register.png'
 import { useGlobalContext } from '../../contexts/contextProvider'
 import { useDispatch } from 'react-redux'
 import { signIn } from '../../redux/auth'
+import img1 from '../../images/Life is Bori.png'
+import book1 from '../../images/BOOKS (3).png'
 
 const LoginPage = () => {
   const {
@@ -15,17 +17,34 @@ const LoginPage = () => {
     handleLogin,
     error,
     errorMsg,
+    setShowHeader,
+    tempHandleLogIN,
+    handleChangeAuth,
   } = useGlobalContext()
 
   return (
     <div className='login_container'>
-      <div className='display-sidebar'>
-        <img src={geo1} alt='geo1' width={100} height={100} id='img1' />
-        <h1>You want seamless transaction? Then you are at the right place</h1>
-        <img src={illustration} alt='illustration imag' id='img2' />
-      </div>
+      {/* <div className='display-sidebar'>
+        <img src={book1} alt='geo1' width={100} height={100} id='img1' />
+        <h1>
+          Join us as we explore the beauty of nature and speak with nature
+          through books
+        </h1>
+        <img src={img1} alt='illustration imag' id='img2' />
+      </div> */}
 
       <div className='input_page'>
+        <div className='changeAuth'>
+          {signUp ? (
+            <span>Already have an account ? Log in </span>
+          ) : (
+            <span>Don't have an account ? Sign in </span>
+          )}
+          <span onClick={handleChangeAuth} className='span'>
+            here
+          </span>
+        </div>
+
         {signUp ? (
           <div className='header'>
             <h5>Get Started</h5>
@@ -39,11 +58,6 @@ const LoginPage = () => {
             <p>Enter your details:</p>
           </div>
         )}
-        {/* {error && (
-          <div className='error'>
-            <p>{errorMsg}</p>
-          </div>
-        )} */}
 
         <div className='inputs'>
           <div className='names'>
@@ -150,12 +164,12 @@ const LoginPage = () => {
                 type='button'
                 value='Login'
                 id='btn'
-                onClick={() => handleLogin()}
+                onClick={handleLogin}
               />
             )}
 
             <p id='text'>
-              By registering, I agree to Geotopup{' '}
+              By registering, You are agreeing to our{' '}
               <span>Terms of Service and Privacy Policy.</span>
             </p>
           </div>

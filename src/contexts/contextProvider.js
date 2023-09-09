@@ -27,14 +27,42 @@ export const ContextProvider = ({ children }) => {
   const [signUp, setSignUp] = useState(false)
   const [header, setHeader] = useState(true)
   const [loader, setLoader] = useState(true)
+  const [loginPage, setLoginPage] = useState(false)
+  const [signedIn, setSignedIn] = useState(false)
+  const [favorite, setFavorite] = useState('')
 
+  const objTemp = {
+    list_name: '',
+    books: {
+      author: '',
+      book_image: '',
+      description: '',
+      title: '',
+      book_uri: '',
+      amazon_product_url: '',
+      rank: '',
+    },
+  }
   const navigate = useNavigate()
+
+  const navToProfile = () => {
+    navigate('/myprofile')
+  }
+  const addToFavorite = (obj) => {
+    setFavorite((previous) => [...previous, obj])
+  }
+
+  //USE EFFECT FOR THE FAVORITES
+  useEffect(() => {
+    setFavorite(favorite)
+    console.log(favorite)
+  }, [favorite])
 
   const handleBookList = async () => {
     setLoader(true)
     try {
       const url =
-        'https://api.nytimes.com/svc/books/v3/lists//full-overview.json?&api-key={API-KEY}'
+        'https://api.nytimes.com/svc/books/v3/lists//full-overview.json?&api-key=RUnW3vOenNDvoKKbJ3rMBmGTy6prxnV1'
       const options = {
         method: 'GET',
         headers: {
@@ -52,45 +80,39 @@ export const ContextProvider = ({ children }) => {
       console.log(error.message)
     }
   }
-  // handleBookList()
-  // async function execute() {
 
-  //   fetch(url, options)
-  //     .then((response) => {
-  //       if (response.ok) {
-  //         return response.text()
-  //       }
-  //       return response.text().then((err) => {
-  //         return Promise.reject({
-  //           status: response.status,
-  //           statusText: response.statusText,
-  //           errorMessage: err,
-  //         })
-  //       })
-  //     })
-  //     .then((data) => {
-  //       const jsonData = JSON.parse(data)
-  //       const categoryList = jsonData.results.lists
-  //       setBookList(categoryList)
-  //       console.log(bookList)
-  //     })
-  //     .catch((err) => {
-  //       console.error(err)
-  //     })
-  // }
-  // execute()
-
+  const navToAbout = () => {
+    navigate('/about')
+  }
+  const navToContact = () => {
+    navigate('/contact')
+  }
   const handleChangeAuth = () => {
     setSignUp((signUp) => !signUp)
   }
+  const handleLogInPage = () => {
+    setLoginPage(false)
+    navigate('/auth')
+  }
   const handleLogout = () => {
-    setHeader((header) => !header)
+    setLoginPage(false)
+    setHeader(false)
     navigate('/')
+    window.location.reload()
   }
   const handleBooks = () => {
-    navigate('/home')
     handleBookList()
+    navigate('/home')
+
     //execute()
+  }
+  const tempHandleLogIN = () => {
+    handleBookList()
+    setSignUp((signUp) => !signUp)
+    setHeader(true)
+    setSignedIn(true)
+    setLoginPage(true)
+    navigate('/home')
   }
   const handleSignIn = () => {
     auth.createUserWithEmailAndPassword(details.email, details.password).then(
@@ -98,9 +120,12 @@ export const ContextProvider = ({ children }) => {
         var user = firebase.auth().currentUser
         if (user.multiFactor.user.uid) {
           setSignUp((signUp) => !signUp)
-          navigate('/homepage')
+          setHeader(true)
+          setSignedIn(true)
+          setLoginPage(true)
+          navigate('/home')
         } else {
-          navigate('/login')
+          navigate('/auth')
         }
         console.log(user) // Optional
       },
@@ -111,7 +136,8 @@ export const ContextProvider = ({ children }) => {
         console.log(errorMessage)
         // setError(true)
         // setErrorMsg(errorMessage)
-        setError(true)(function () {
+        setError(true)
+        function errorFunction() {
           switch (error.code) {
             case 'auth/weak-password':
               // setErrorMsg(
@@ -126,10 +152,14 @@ export const ContextProvider = ({ children }) => {
             case 'auth/network-request-failed':
               alert('Please check your network connection')
               return error.code
+            case 'auth/email-already-in-use':
+              alert('The email address is already in use by another account.')
+              return error.code
             default:
               return 'other errors please check later'
           }
-        })
+        }
+        errorFunction()
       }
     )
 
@@ -146,10 +176,14 @@ export const ContextProvider = ({ children }) => {
         // user.displayName = details.first_name
         console.log(user.multiFactor.user.uid)
         if (user.multiFactor.user.uid) {
-          navigate('/homepage')
           setSignUp((signUp) => !signUp)
+          setHeader(true)
+          setSignedIn(true)
+          setLoginPage(true)
+          handleBookList()
+          navigate('/home')
         } else {
-          navigate('/login')
+          navigate('/auth')
         }
       })
       .catch((error) => {
@@ -188,6 +222,9 @@ export const ContextProvider = ({ children }) => {
   //     setError(false)
   //   }, 3000)
   // }, [error])
+  // useEffect(() => {
+  //   handleBookList()
+  // }, [loader])
   return (
     <GlobalContext.Provider
       value={{
@@ -204,6 +241,15 @@ export const ContextProvider = ({ children }) => {
         handleBooks,
         bookList,
         loader,
+        loginPage,
+        signedIn,
+        tempHandleLogIN,
+        setLoginPage,
+        handleLogInPage,
+        navToAbout,
+        navToContact,
+        addToFavorite,
+        navToProfile,
       }}
     >
       {children}

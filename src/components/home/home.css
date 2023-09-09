@@ -14,6 +14,28 @@
   padding: 20px;
   background-color: aqua;
 } */
+/* 
+.landingpage {
+  width: 100%;
+
+  text-align: center;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('../../images/Read\ A\ Book\ Motivational\ Quote\ Facebook\ Post\ \(1\).png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  height: 600px;
+}
+.landingpage button {
+  background-color: rgb(233, 222, 207);
+  margin-top: 44%;
+
+  border-radius: 5px;
+  padding: 5px;
+  transition: all 1s ease-in;
+}
+.landingpage button:hover {
+} */
 
 .books {
   /* text-align: center; */
@@ -21,6 +43,7 @@
   padding: 10px;
   /* margin: auto; */
   /*align-items: center; */
+  transition: all 0.8s ease-in;
 
   background-image: none;
   /* background-image: url('../../images/BOOKS.png');
@@ -29,18 +52,31 @@
   width: 80%;
   margin: auto;
   margin-top: 80px;
-  height: 100vh;
+  height: 100%;
+  max-height: fit-content;
+}
+.books:hover {
+  background-color: rgb(244, 233, 220);
+  /* transform: translateZ(5px); */
 }
 .card {
   display: inline-block;
-  height: 300px;
+  height: 320px;
   width: 200px;
   /* border: 1px solid; */
   margin: 15px;
   overflow: hidden;
+  transition: all 0.2s ease-in;
 
   /* border-radius: 5px; */
 }
+
+/* .card .button {
+  display: inline-block;
+  position: absolute;
+  top: 60px;
+  right: 0px;
+} */
 .card .img-container {
   /* position: relative; */
   width: 100%;
@@ -51,6 +87,9 @@
   width: 100%;
   height: 100%;
   border-radius: 5px;
+}
+.card:hover {
+  transform: scale(1.05, 1.05);
 }
 .card .info {
   /* text-align: center; */
@@ -73,10 +112,10 @@
   cursor: pointer;
 }
 
-.renders {
+/* .renders {
   display: flex;
   background-color: #fff;
-}
+} */
 
 .loader,
 .loader:before,
@@ -88,7 +127,7 @@
   height: 4em;
 }
 .loader {
-  color: bisque;
+  color: rgb(247, 211, 168);
   text-indent: -9999em;
   margin: 88px auto;
   margin-top: 20rem;
@@ -137,4 +176,12 @@
     box-shadow: 0 -2em;
     height: 5em;
   }
+}
+.card {
+  /* display: inline;
+  white-space: nowrap; */
+}
+.card .img-container {
+  /* height: 100px;
+  width: 100px; */
 }

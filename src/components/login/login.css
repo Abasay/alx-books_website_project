@@ -1,5 +1,18 @@
 .login_container {
+  background-image: linear-gradient(rgba(9, 7, 7, 0.5), rgba(6, 5, 5, 0.5)),
+    url('../../images/Read\ A\ Book\ Motivational\ Quote\ Facebook\ Post\ \(1\).png');
+  color: rgb(229, 203, 170);
+  height: 100vh;
+  /* margin-top: 40px; */
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: contain;
   /* display: flex; */
+}
+.login_container .signOption {
+  text-align: center;
+  margin-top: 80px;
+  margin-bottom: 0px;
 }
 .login_container .create {
   display: flex;
@@ -36,11 +49,13 @@
   flex-direction: column;
   /* border: 2px solid black; */
 
-  height: 100vh;
-  margin: auto auto;
-  margin-top: 40px;
-  padding: 15px;
+  height: 76.5vh;
+  margin: 0px auto;
+  position: absolute;
+  top: 85px;
+  padding: 5px;
   max-width: 450px;
+  margin-bottom: 11%;
 }
 
 .login_container .inputs .names {
@@ -129,7 +144,7 @@
     flex-direction: column;
   }
   .login_container .input_page {
-    margin-left: 50%;
+    /* margin-left: 50%; */
     position: relative;
   }
   .login_container .display-sidebar {
@@ -162,4 +177,12 @@
   .login_container .display-sidebar {
     max-width: 450px;
   }
+}
+.changeAuth {
+  margin-bottom: 20px;
+  margin-left: 10px;
+}
+.changeAuth span:nth-child(2) {
+  cursor: pointer;
+  text-decoration: underline;
 }

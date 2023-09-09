@@ -7,7 +7,8 @@
 .home {
   background-image: url('./images/BOOKS\ \(2\).png');
   background-image: url('./images/1.png');
-  background-image: url('./images/Read\ A\ Book\ Motivational\ Quote\ Facebook\ Post\ \(1\).png');
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('./images/Read\ A\ Book\ Motivational\ Quote\ Facebook\ Post\ \(1\).png');
   background-repeat: no-repeat;
   background-position: contain;
   background-attachment: scroll;
