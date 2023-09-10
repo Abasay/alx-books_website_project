@@ -4,9 +4,11 @@ import './headpage.css'
 import { useGlobalContext } from '../contexts/contextProvider'
 import { MdLibraryBooks, MdMenuBook, MdMenu, MdCancel } from 'react-icons/md'
 import book1 from '../images/BOOKS (3).png'
+import { useNavigate } from 'react-router-dom'
 
 const HeaderPage = () => {
   const [slide, setSlide] = useState(false)
+  const navigate = useNavigate()
   const {
     handleChangeAuth,
     signUp,
@@ -19,11 +21,12 @@ const HeaderPage = () => {
     navToAbout,
     navToContact,
     navToProfile,
+    navToFavorite,
   } = useGlobalContext()
   //Retrieve the user's details from localstorage and set some headers to false if d dettails are true
 
   return (
-    <div className='header'>
+    <div className='header' style={{ backgroundColor: 'burlywood' }}>
       <div className='headerLanding'>
         <div
           className='img-container'
@@ -35,7 +38,8 @@ const HeaderPage = () => {
             alt=''
             width={80}
             height={80}
-            style={{ borderRadius: '5px' }}
+            style={{ borderRadius: '5px', cursor: 'pointer' }}
+            onClick={() => navigate('/')}
           />
         </div>
         {loginPage ? (
@@ -54,8 +58,8 @@ const HeaderPage = () => {
                   <li id='menu'>
                     <MdCancel
                       style={{
-                        backgroundColor: 'white',
-                        color: 'red',
+                        backgroundColor: 'burlywood',
+                        color: 'black',
                         marginLeft: '80%',
                       }}
                       size={30}
@@ -73,7 +77,7 @@ const HeaderPage = () => {
                     {/* <AiFillProfile size={22} /> */}
                     <span>My Profile</span>
                   </li>
-                  <li>
+                  <li onClick={navToFavorite}>
                     {/* <AiFillLike size={22} /> */}
                     <span>Favorite</span>
                   </li>

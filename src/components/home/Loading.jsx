@@ -1,5 +1,5 @@
 import React from 'react'
-// import './home.css'
+import './home.scss'
 const Loading = () => {
   return <div className='loader'></div>
 }

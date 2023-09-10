@@ -74,7 +74,7 @@ const LandingPage = () => {
         <img
           src='https://th.bing.com/th/id/OIP.1ENmGj76FT746K_h8muu6QHaFr?w=251&h=191&c=7&r=0&o=5&pid=1.7'
           alt=''
-          width={400}
+          width={500}
           height={500}
         />
         <p>Become a reader today</p>
@@ -113,7 +113,6 @@ const LandingPage = () => {
           )
         })}
       </div>
-      <Footer />
     </div>
   )
 }

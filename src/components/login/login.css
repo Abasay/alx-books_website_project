@@ -1,12 +1,15 @@
 .login_container {
-  background-image: linear-gradient(rgba(9, 7, 7, 0.5), rgba(6, 5, 5, 0.5)),
-    url('../../images/Read\ A\ Book\ Motivational\ Quote\ Facebook\ Post\ \(1\).png');
-  color: rgb(229, 203, 170);
+  /* background-image: linear-gradient(rgba(9, 7, 7, 0.5), rgba(6, 5, 5, 0.5)),
+    url('../../images/Read\ A\ Book\ Motivational\ Quote\ Facebook\ Post\ \(1\).png'); */
+  /* color: rgb(229, 203, 170); */
   height: 100vh;
   /* margin-top: 40px; */
   background-repeat: no-repeat;
   background-size: cover;
   background-position: contain;
+  line-height: 30px;
+  width: 80%;
+  margin: 10px auto;
   /* display: flex; */
 }
 .login_container .signOption {
@@ -42,6 +45,8 @@
 
 .login_container .header {
   margin-left: 10px;
+  box-shadow: none;
+  margin-bottom: 40px;
 }
 
 .login_container .input_page {
@@ -51,8 +56,9 @@
 
   height: 76.5vh;
   margin: 0px auto;
-  position: absolute;
-  top: 85px;
+  /* position: absolute; */
+  top: 90px;
+  margin-top: 90px;
   padding: 5px;
   max-width: 450px;
   margin-bottom: 11%;
@@ -83,8 +89,8 @@
 .login_container .inputs .names input:focus,
 .login_container .inputs .others input:focus {
   outline: none;
-  border: 2px solid rgb(234, 215, 215);
-  background-color: rgb(187, 234, 218);
+  border: 2px solid rgb(240, 224, 160);
+  background-color: rgb(237, 228, 167);
 }
 .login_container .inputs .others input,
 .login_container .inputs .others p {
@@ -104,11 +110,16 @@
   margin-top: 10px;
 }
 #btn {
-  background-color: rgb(3, 64, 3);
+  background-color: burlywood;
   border: 0 solid;
-  color: #fff;
+  color: black;
   margin-bottom: 0;
   cursor: pointer;
+  transition: all 0.2s ease-in;
+}
+
+#btn:hover {
+  background-color: rgb(221, 199, 170);
 }
 #text {
   margin-top: 0;
@@ -122,7 +133,7 @@
   }
   .login_container .inputs .names input:first-child {
     padding: 10px;
-    margin: 10px;
+    /* margin: 10px; */
     border-radius: 5px;
     width: 100%;
     border: 1px solid black;
@@ -145,18 +156,18 @@
   }
   .login_container .input_page {
     /* margin-left: 50%; */
-    position: relative;
+    /* position: relative; */
   }
   .login_container .display-sidebar {
-    height: 100vh;
-    position: absolute;
+    /* height: 100vh; */
+
     display: block;
 
-    top: 0;
+    /* top: 0;
     margin-left: 5px;
     margin-top: 5px;
     width: 40%;
-    border: 0.2px solid rgb(205, 202, 202);
+    border: 0.2px solid rgb(205, 202, 202); */
   }
 
   .login_container .display-sidebar #img2,
@@ -165,7 +176,7 @@
     padding: 25px;
   }
   .login_container .display-sidebar h1 {
-    margin-top: 40px;
+    /* margin-top: 40px; */
     padding: 15px;
   }
   .login_container .display-sidebar #img2 {

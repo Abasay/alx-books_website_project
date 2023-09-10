@@ -3,7 +3,7 @@
 
 .landing .landingpage {
   width: 100%;
-  margin-top: 80px;
+  margin-top: 30px;
   /* text-align: center;
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url('../../images/Read\ A\ Book\ Motivational\ Quote\ Facebook\ Post\ \(1\).png');
@@ -31,19 +31,22 @@
   width: 80%;
   display: flex;
   margin: 10px auto;
+  border: 2px solid burlywood;
+  border-radius: 15px;
+  background-color: rgba(215, 185, 145, 0.1);
 }
 
 .landing .another img {
   border-radius: 10px;
-  flex: 0.7;
-  width: 100px;
+  /* flex: 0.7; */
+  width: 70%;
   border-radius: 15px;
   padding-right: 150px;
 }
 
 .landing .another p {
   font-weight: 600;
-  margin-top: 15%;
+  margin-top: 200px;
 }
 
 .landing .landing-books {
@@ -57,15 +60,19 @@
 .landing .landing-books .landing-book-list {
   display: inline-block;
   margin: 2px auto;
+  cursor: pointer;
+  padding: 10px;
 }
 
 .landing .landing-books .landing-book-list .card {
   /* box-shadow: 0px 0px 4px grey; */
   width: 200px;
   padding: 10px;
+  height: 315px;
   border-radius: 5px;
   transition: all 0.2s ease-in;
   border: 1px solid burlywood;
+  cursor: pointer;
 }
 .landing .landing-books .landing-book-list .card .info .desc {
   display: -webkit-box;

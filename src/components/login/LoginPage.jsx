@@ -9,6 +9,7 @@ import img1 from '../../images/Life is Bori.png'
 import book1 from '../../images/BOOKS (3).png'
 
 const LoginPage = () => {
+  //The Login Page
   const {
     signUp,
     details,
@@ -20,19 +21,11 @@ const LoginPage = () => {
     setShowHeader,
     tempHandleLogIN,
     handleChangeAuth,
+    setLoginPage,
   } = useGlobalContext()
-
+  setLoginPage(false)
   return (
     <div className='login_container'>
-      {/* <div className='display-sidebar'>
-        <img src={book1} alt='geo1' width={100} height={100} id='img1' />
-        <h1>
-          Join us as we explore the beauty of nature and speak with nature
-          through books
-        </h1>
-        <img src={img1} alt='illustration imag' id='img2' />
-      </div> */}
-
       <div className='input_page'>
         <div className='changeAuth'>
           {signUp ? (
