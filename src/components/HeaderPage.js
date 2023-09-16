@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import geo1 from './login/geo1.png'
 import './headpage.css'
 import { useGlobalContext } from '../contexts/contextProvider'
 import { MdLibraryBooks, MdMenuBook, MdMenu, MdCancel } from 'react-icons/md'
@@ -7,6 +6,7 @@ import book1 from '../images/BOOKS (3).png'
 import { useNavigate } from 'react-router-dom'
 
 const HeaderPage = () => {
+  //Header Page Component to that displas the nav bars
   const [slide, setSlide] = useState(false)
   const navigate = useNavigate()
   const {
@@ -23,7 +23,6 @@ const HeaderPage = () => {
     navToProfile,
     navToFavorite,
   } = useGlobalContext()
-  //Retrieve the user's details from localstorage and set some headers to false if d dettails are true
 
   return (
     <div className='header' style={{ backgroundColor: 'burlywood' }}>
@@ -82,10 +81,9 @@ const HeaderPage = () => {
                     <span>Favorite</span>
                   </li>
 
-                  <li>
-                    {/* <MdLibraryBooks size={22} /> */}
+                  {/* <li>
                     <span> My Library</span>
-                  </li>
+                  </li> */}
 
                   <li className='logout' onClick={handleLogout}>
                     {/* <AiOutlineLogout size={22} /> */}
@@ -99,7 +97,28 @@ const HeaderPage = () => {
           <div className='logOutHeader'>
             {' '}
             <div className='navs'>
+              <div className='menu'>
+                <MdMenu
+                  size={30}
+                  onClick={() => {
+                    setSlide((slide) => !slide)
+                  }}
+                />
+              </div>
               <ul className={slide ? 'navList slidebar' : 'navList'}>
+                <li id='menu'>
+                  <MdCancel
+                    style={{
+                      backgroundColor: 'burlywood',
+                      color: 'black',
+                      marginLeft: '80%',
+                    }}
+                    size={30}
+                    onClick={() => {
+                      setSlide((slide) => !slide)
+                    }}
+                  />
+                </li>
                 {signedIn || (
                   <li onClick={navToAbout}>
                     {/* <AiFillProfile size={22} /> */}
