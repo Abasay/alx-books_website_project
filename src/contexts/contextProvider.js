@@ -11,10 +11,12 @@ import 'firebase/compat/auth'
 import { collection, doc, getDocs, setDoc } from 'firebase/firestore'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
+import Swal from 'sweetalert2'
 
 const GlobalContext = createContext()
 
 export const ContextProvider = ({ children }) => {
+  //The context provider to define functions and props and allow easy passing of the functions and props
   const [details, setDetails] = useState({
     first_name: '',
     last_name: '',
@@ -22,12 +24,14 @@ export const ContextProvider = ({ children }) => {
     email: '',
     referrer: '',
     password: '',
+    confirmPassword: '',
   })
   const [bookList, setBookList] = useState([])
   const [error, setError] = useState(false)
   const [signUp, setSignUp] = useState(false)
   const [header, setHeader] = useState(true)
   const [loader, setLoader] = useState(true)
+  const [loading, setLoading] = useState(false)
   const [loginPage, setLoginPage] = useState(false)
   const [signedIn, setSignedIn] = useState(false)
   const [favorite, setFavorite] = useState('')
@@ -35,59 +39,98 @@ export const ContextProvider = ({ children }) => {
   const [bookRoute, setBookRoute] = useState('')
   const [usersFavorite, setUsersFavorite] = useState([])
 
-  const objTemp = {
-    list_name: '',
-    books: {
-      author: '',
-      book_image: '',
-      description: '',
-      title: '',
-      book_uri: '',
-      amazon_product_url: '',
-      rank: '',
-    },
-  }
+  //Assigning the useNavigate to a variable
   const navigate = useNavigate()
 
   const navToProfile = () => {
+    //Function to navigate to profile page
     fetchFavoriteBooks()
     navigate('/myprofile')
   }
   const addToFavorite = (obj) => {
+    //Function to add to favorites
     setFavorite((previous) => [...previous, obj])
   }
 
   const navToFavorite = () => {
+    //Function to navigate to favorite page
     fetchFavoriteBooks()
     navigate('/favorite')
   }
+  const sweetAlert = (
+    iconText,
+    titleText,
+    textInput,
+    bool,
+    timerNum,
+    bool1,
+    bool3
+  ) => {
+    //Sweet alert default function
+    Swal.fire({
+      position: 'center',
+      icon: iconText,
+      title: titleText,
+      text: textInput,
+      showConfirmButton: true,
+      confirmButtonColor: 'burlywood',
+    })
+  }
 
   const handleFavoriteBooks = async (bookObj) => {
-    setLoader(true)
+    //Function to add to favorite and also check if book is already added or not
+    const accessToken = localStorage.getItem('userAccessToken')
     try {
-      const userId = localStorage.getItem('book-user-id')
-      const querySnapshot = await getDocs(collection(db, userId))
+      setLoading(true)
+      if (accessToken) {
+        const userId = localStorage.getItem('book-user-id')
+        const querySnapshot = await getDocs(collection(db, userId))
 
-      const result = querySnapshot.docs.map((doc) => {
-        const data = doc.data()
-        return data
-      })
+        const result = querySnapshot.docs.map((doc) => {
+          const data = doc.data()
+          return data
+        })
 
-      const checkBook = result.filter((res) => res.title === bookObj.title)
-      if (checkBook.length === 1) {
-        alert('Book already added to Favorite')
+        const checkBook = result.filter((res) => res.title === bookObj.title)
+        if (checkBook.length === 1) {
+          sweetAlert('error', 'Ooops', 'Book already added to Favrite')
+        } else {
+          const newBookRef = doc(collection(db, userId))
+
+          await setDoc(newBookRef, { ...bookObj, id: newBookRef.id })
+          sweetAlert('success', 'success', 'Book added to Favrite')
+        }
+        setLoading(false)
       } else {
-        const newBookRef = doc(collection(db, userId))
-
-        await setDoc(newBookRef, { ...bookObj, id: newBookRef.id })
-        alert('Book added to your favorite')
+        Swal.fire({
+          title: 'Ooops, Sorry...',
+          text: "You aren't logged in, login to save to favorite",
+          icon: 'error',
+          showCancelButton: true,
+          confirmButtonColor: 'burlywood',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Log in',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            Swal.fire({
+              title: 'Redirect!',
+              text: 'You are being redirected to the login page',
+              confirmButtonColor: 'burlywood',
+              timer: 1500,
+            })
+            navigate('/auth')
+          }
+        })
       }
     } catch (error) {
-      console.log(error.message)
+      //error function
+      setLoading(false)
+      sweetAlert('error', 'Network Error', 'Please try again')
     }
   }
 
   const fetchFavoriteBooks = async () => {
+    //Function to fetch the list of favorite books
     setLoader(true)
     try {
       const userId = localStorage.getItem('book-user-id')
@@ -103,57 +146,59 @@ export const ContextProvider = ({ children }) => {
         console.log(usersFavorite)
       }, 5000)
     } catch (error) {
+      setLoader(false)
       console.log(error.message)
     }
   }
 
-  // useEffect(() => {
-  //   //setUsrersFavorite useEffect
-  //   fetchFavoriteBooks()
-  //   setUsersFavorite(usersFavorite)
-  // }, [usersFavorite])
-
   const navToAbout = () => {
+    //Navigate to about page
     navigate('/about')
   }
   const navToContact = () => {
+    //Navigate to contact page
     navigate('/contact')
   }
   const handleChangeAuth = () => {
+    //Change signup state
     setSignUp((signUp) => !signUp)
   }
   const handleLogInPage = () => {
+    //Navigate to login page
     setLoginPage(false)
     navigate('/auth')
   }
   const handleLogout = () => {
+    //Function to handle the logging out our users
+    sweetAlert(
+      'success',
+      'Logged Out',
+      'Bye, kindly login again to continue your explore!!!'
+    )
     setLoginPage(false)
     setHeader(false)
-    localStorage.removeItem('user-id')
     localStorage.removeItem('userAccessToken')
-    localStorage.removeItem('userEmail')
-    localStorage.removeItem('userProfile')
-    localStorage.removeItem('newArr')
     localStorage.removeItem('user-email')
     localStorage.removeItem('book-user-id')
-    localStorage.removeItem('products')
     navigate('/')
-    window.location.reload()
+    setTimeout(() => {
+      window.location.reload()
+    }, 3000)
   }
   const handleBooks = () => {
-    // handleBookList()
+    // navigate to home
     navigate('/home')
-
-    //execute()
   }
 
   const handleSignIn = async () => {
+    //Function to handle user's sign in
     if (
       details.email &&
       details.first_name &&
       details.last_name &&
       details.password &&
-      details.phone_number
+      details.phone_number &&
+      details.password === details.confirmPassword
     ) {
       auth
         .createUserWithEmailAndPassword(details.email, details.password)
@@ -171,8 +216,14 @@ export const ContextProvider = ({ children }) => {
               setHeader(true)
               setSignedIn(true)
               setLoginPage(true)
+              sweetAlert(
+                'success',
+                'Login successful',
+                'We wish you a wonderful explore'
+              )
               navigate('/home')
             } else {
+              sweetAlert('error', 'Ooops', 'Please try again')
               navigate('/auth')
             }
             console.log(user) // Optional
@@ -188,24 +239,36 @@ export const ContextProvider = ({ children }) => {
             function errorFunction() {
               switch (error.code) {
                 case 'auth/weak-password':
-                  // setErrorMsg(
-                  //   'weak password, password should be at least six characters'
-                  // )
-                  alert('The password is too weak.')
-                  return error.code
-                case 'auth/invalid-email':
-                  // setErrorMsg('Thrown if the email address is not valid')
-                  alert('Invalid Email address, please peovide a valid email.')
-                  return error.code
-                case 'auth/network-request-failed':
-                  alert('Please check your network connection')
-                  return error.code
-                case 'auth/email-already-in-use':
-                  alert(
-                    'The email address is already in use by another account.'
+                  sweetAlert(
+                    'error',
+                    'Weak Password',
+                    'Password must not be less than 6 characters'
                   )
                   return error.code
+                case 'auth/invalid-email':
+                  sweetAlert(
+                    'error',
+                    'Invalid Email',
+                    'please peovide a valid email'
+                  )
+                  return error.code
+                case 'auth/network-request-failed':
+                  sweetAlert(
+                    'error',
+                    'Network fail',
+                    'You arre currently offline or have a poor internet connection'
+                  )
+                  return error.code
+                case 'auth/email-already-in-use':
+                  sweetAlert(
+                    'error',
+                    'Email already in use',
+                    'Email address is already in use by another account.'
+                  )
+
+                  return error.code
                 default:
+                  sweetAlert('error', 'Unknown', 'Please try again')
                   return 'other errors please check later'
               }
             }
@@ -221,16 +284,16 @@ export const ContextProvider = ({ children }) => {
           }
         })
     } else {
-      alert('Please enter all the required fields')
+      sweetAlert(
+        'error',
+        'Incomplete',
+        'Some fields are not entered with appropriate values, please double check'
+      )
     }
-
-    // setTimeout(() => {
-    //   setError(false)
-    // }, 3000)
   }
 
   const handleLogin = () => {
-    //Handle Login
+    //Handle Logging users in
     if (details.email && details.password) {
       auth
         .signInWithEmailAndPassword(details.email, details.password)
@@ -253,8 +316,14 @@ export const ContextProvider = ({ children }) => {
             setSignedIn(true)
             setLoginPage(true)
             // handleBookList()
+            sweetAlert(
+              'success',
+              'Login successful',
+              'We wish you a wonderful explore'
+            )
             navigate('/home')
           } else {
+            sweetAlert('error', 'Ooops...', 'Please try again')
             navigate('/auth')
           }
         })
@@ -263,43 +332,52 @@ export const ContextProvider = ({ children }) => {
           function errorChoice() {
             switch (error.code) {
               case 'auth/wrong-password':
-                // setErrorMsg('wrong username/password')
-                alert('wrong username/password.')
-                return error.code
-              case 'auth/invalid-email':
-                // setErrorMsg('Thrown if the email address is not valid')
-                alert('Invalid Email address, please peovide a valid email.')
-                return error.code
-              case 'auth/user-not-found':
-                // setErrorMsg('no user corresponding to the given email.')
-                alert('no user corresponding to the given email.')
-                return error.code
-              case 'auth/user-disabled':
-                // setErrorMsg(
-                //   'your account is disabled due to illegal actions perrformed on it'
-                // )
-                alert(
-                  'your account is disabled due to illegal actions perrformed on it'
+                sweetAlert(
+                  'error',
+                  'Wrong Password',
+                  'Wrong Password, please enter the correct password'
                 )
                 return error.code
-              default:
+              case 'auth/invalid-email':
+                sweetAlert(
+                  'error',
+                  'User do not exist',
+                  'No user with this email address attached'
+                )
                 return error.code
+              case 'auth/user-not-found':
+                sweetAlert(
+                  'error',
+                  'User do not exist',
+                  'No user with this email address attached'
+                )
+                return error.code
+              case 'auth/user-disabled':
+                sweetAlert(
+                  'error',
+                  'Account disabled!!!',
+                  'Your account has been disabled due to illegal actions perrformed on it'
+                )
+
+                return error.code
+              default:
+                sweetAlert(
+                  'error',
+                  'Server Error',
+                  'Please check your network connectivity and try again!!!'
+                )
             }
           }
           errorChoice()
         })
     } else {
-      alert('Please enter all the required fields')
+      sweetAlert(
+        'error',
+        'Incomplete',
+        'Some fields are not entered with appropriate values, please double check'
+      )
     }
   }
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setError(false)
-  //   }, 3000)
-  // }, [error])
-  // useEffect(() => {
-  //   handleBookList()
-  // }, [loader])
 
   useEffect(() => {
     setBookRoute(bookRoute)
@@ -322,7 +400,7 @@ export const ContextProvider = ({ children }) => {
         loader,
         loginPage,
         signedIn,
-
+        loading,
         setLoginPage,
         handleLogInPage,
         navToAbout,
