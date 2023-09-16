@@ -2,11 +2,13 @@ import React from 'react'
 import { useGlobalContext } from '../../contexts/contextProvider'
 import { FaHandPointDown } from 'react-icons/fa'
 import './singlebook.scss'
+import Swal from 'sweetalert2'
+import ReactLoading from 'react-loading'
 
 const SingleBook = () => {
-  const { bookRoute, singleBook, handleFavoriteBooks } = useGlobalContext()
-
-  console.log(singleBook.author)
+  //Page to display the details of a book when a book is clicked on
+  const { bookRoute, singleBook, handleFavoriteBooks, loading } =
+    useGlobalContext()
   const {
     age_group,
     amazon_product_url,
@@ -45,7 +47,30 @@ const SingleBook = () => {
         <button onClick={() => handleFavoriteBooks(singleBook)}>
           Add to Favorite
         </button>
-        <button>Read Now</button>
+        <button
+          onClick={() => {
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: 'Coming Soon',
+              text: '',
+              showConfirmButton: true,
+              confirmButtonColor: 'burlywood',
+            })
+          }}
+        >
+          Read Now
+        </button>
+        {loading && (
+          <div style={{ width: 40, margin: '20px auto' }}>
+            <ReactLoading
+              type='spinningBubbles'
+              height={50}
+              width={40}
+              color='burlywood'
+            />
+          </div>
+        )}
       </div>
       <p>
         <span style={{ fontWeight: 600 }}>Published by: </span>
