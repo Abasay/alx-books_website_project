@@ -1,16 +1,10 @@
+/* CSS file to style the landing page */
 @import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500&display=swap');
 
 .landing .landingpage {
   width: 100%;
   margin-top: 30px;
-  /* text-align: center;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url('../../images/Read\ A\ Book\ Motivational\ Quote\ Facebook\ Post\ \(1\).png');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  height: 500px; */
 }
 .landing .quote {
   width: 70%;

@@ -5,10 +5,21 @@ import { FaQuoteRight, FaQuoteLeft } from 'react-icons/fa'
 import { myBooks } from '../../data'
 import Footer from '../footer/Footer'
 import logo from '../../images/Read A Book Motivational Quote Facebook Post.png'
+import { useNavigate } from 'react-router-dom'
+import Swal from 'sweetalert2'
 
 const LandingPage = () => {
-  const { loginPage, setLoginPage } = useGlobalContext()
+  const {
+    loginPage,
+    setLoginPage,
+    bookRoute,
+    singleBook,
+    setSingleBook,
+    setBookRoute,
+    handleFavoriteBooks,
+  } = useGlobalContext()
   const [showText, setShowText] = useState(false)
+  const navigate = useNavigate()
   const fetchBooks = async () => {
     const params = {
       mode: 'no-cors',
@@ -32,14 +43,19 @@ const LandingPage = () => {
 
     console.log(response)
   }
-  // const loadPage = () => {
 
-  // }
-  // loadPage()
+  const accessToken = localStorage.getItem('userAccessToken')
+
+  const landinPageSingleBook = (title, obj) => {
+    setBookRoute(title)
+    setSingleBook(obj)
+    navigate(`/book/${title}`)
+  }
+
   return (
     <div className='landing'>
       <div className='landingpage'>
-        <img src={logo} width={'100%'} height={500} alt='' />
+        <img src={logo} width={'100%'} height={700} alt='' />
       </div>
 
       <div className='quote'>
@@ -58,7 +74,7 @@ const LandingPage = () => {
         </p>
         <span
           style={{
-            fontWeight: '500',
+            fontWeight: '600',
             fontFamily: 'Rajdhani sans-serif',
             marginTop: '10px',
             marginBottom: '10px',
@@ -94,7 +110,11 @@ const LandingPage = () => {
 
           return (
             <div className='landing-book-list'>
-              <div className='card' key={index}>
+              <div
+                className='card'
+                key={index}
+                onClick={() => landinPageSingleBook(title, book)}
+              >
                 <div className='img-container'>
                   <img src={book_image} alt={title} width={150} height={200} />
                 </div>

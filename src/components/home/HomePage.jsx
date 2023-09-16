@@ -1,27 +1,30 @@
 import React, { useEffect, useState } from 'react'
 import './home.scss'
 import { useGlobalContext } from '../../contexts/contextProvider'
-import { myBooks } from '../../data'
+// import { myBooks } from '../../data'
 import { useNavigate } from 'react-router-dom'
 
 import Loading from './Loading'
+import Swal from 'sweetalert2'
 const HomePage = () => {
-  const {
-    bookList,
+  //The Home Component
+  const { bookList, setLoginPage, setSingleBook, setBookRoute, setBookList } =
+    useGlobalContext()
 
-    setLoginPage,
-
-    setSingleBook,
-    setBookRoute,
-
-    setBookList,
-  } = useGlobalContext()
+  //Assigning useNavigate to a variable
   const navigate = useNavigate()
 
   const accessToken = localStorage.getItem('userAccessToken')
+
+  //Chaeck if user is already signed in
   if (!accessToken) {
     setLoginPage(false)
-    alert('Access denied, please login or signup')
+    Swal.fire({
+      icon: 'error',
+      title: 'Ooops',
+      text: 'Please login or signup',
+      confirmButtonColor: 'burlywood',
+    })
     navigate('/auth')
   }
   const [loading, setLoading] = useState(true)
@@ -43,14 +46,20 @@ const HomePage = () => {
         .then((res) => {
           setBookList(res.results.lists)
           setLoading(false)
-          console.log(res.results.lists)
         })
     } catch (error) {
-      // console.log(error.message)
+      Swal.fire({
+        icon: 'error',
+        title: 'Ooops',
+        text: 'Bad Network Connection, please reload the page',
+        confirmButtonColor: 'burlywood',
+        timer: 3000,
+      })
     }
   }
 
   useEffect(() => {
+    //Update the Page as re-renders by executing the handleBooklist function
     handleBookList()
   }, [])
   return (
@@ -76,18 +85,7 @@ const HomePage = () => {
                         amazon_product_url,
                         rank,
                       } = book
-                      const bookObj = {
-                        list_name,
-                        books: {
-                          author,
-                          book_image,
-                          description,
-                          title,
-                          book_uri,
-                          amazon_product_url,
-                          rank,
-                        },
-                      }
+
                       return (
                         <div
                           className='card'
@@ -112,12 +110,6 @@ const HomePage = () => {
 
                             {/* <p>{description ? description : amazon_product_url}</p> */}
                           </div>
-                          {/* <span
-                        className='button'
-                        onClick={() => addToFavorite(bookObj)}
-                      >
-                        Add to Favorite
-                      </span> */}
                         </div>
                       )
                     })}
