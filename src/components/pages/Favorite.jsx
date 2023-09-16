@@ -6,8 +6,10 @@ import './page.scss'
 import ReactLoading from 'react-loading'
 import { useNavigate } from 'react-router-dom'
 import { MdDelete } from 'react-icons/md'
+import Swal from 'sweetalert2'
 
 const Favorite = () => {
+  //Favorite function component
   const navigate = useNavigate()
 
   const accessToken = localStorage.getItem('userAccessToken')
@@ -22,13 +24,14 @@ const Favorite = () => {
 
   if (!accessToken) {
     setLoginPage(false)
-    alert('Access denied, please login or signup')
+    Swal('error', 'Ooops, Not logged in', 'Please login or signup')
     navigate('/auth')
   }
   const userId = localStorage.getItem('book-user-id')
 
   const [userFav, setUserFav] = useState([])
   const [loading, setLoading] = useState(false)
+  const [delet, setDelet] = useState(false)
   setLoginPage(true)
   const fetchFavoriteBooks = async () => {
     setLoading(true)
@@ -46,31 +49,48 @@ const Favorite = () => {
           setLoading(false)
         })
 
-      // const result = querySnapshot.docs.map((doc) => {
-      //   const data = doc.data()
-      //   return data
-      // })
-
-      console.log(userFav)
+      // console.log(userFav)
     } catch (error) {
       setLoading(false)
 
-      console.log(error.message)
+      // console.log(error.message)
     }
   }
 
   const handleDelete = async (id) => {
     const newBooks = userFav.filter((book) => book.id !== id)
-    setUserFav(newBooks)
+
     console.log(userId)
     console.log(id)
     const bookRef = doc(db, userId, id)
-    await deleteDoc(bookRef)
+
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: 'burlywood',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setUserFav(newBooks)
+        setDelet(true)
+        execute()
+        Swal.fire({
+          icon: 'success',
+          title: 'Removed!',
+          text: 'Book removed from favorites.',
+          confirmButtonColor: 'burlywood',
+        })
+      }
+    })
+    const execute = async () => {
+      await deleteDoc(bookRef)
+    }
   }
   useEffect(() => {
-    //setUsrersFavorite useEffect
     fetchFavoriteBooks()
-    // setUserFav(usersFavorite)
   }, [])
 
   return (
