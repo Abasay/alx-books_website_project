@@ -6,6 +6,7 @@ import { useGlobalContext } from '../../contexts/contextProvider'
 import { useNavigate } from 'react-router-dom'
 
 const MyProfile = () => {
+  //Profile Page to display user details entered when signing up
   const { setLoginPage } = useGlobalContext()
 
   const navigate = useNavigate()
@@ -44,7 +45,7 @@ const MyProfile = () => {
   const { first_name, last_name, email, phone_number, referrer } = profile
   return (
     <div style={{ marginTop: '80px' }} className='profile'>
-      <h4>Profile</h4>
+      <h3>Profile</h3>
       <h5>First Name: </h5>
       <p>{first_name}</p>
       <h5> Last Name:</h5>
