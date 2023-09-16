@@ -2,6 +2,7 @@ import React from 'react'
 import './footer.css'
 
 const Footer = () => {
+  //Footer Page Component (Might be removed)
   return (
     <div className='footer-container'>
       <section className='footer'>
