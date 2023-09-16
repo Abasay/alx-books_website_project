@@ -13,16 +13,10 @@ import Contact from './components/pages/Contact'
 import MyProfile from './components/pages/MyProfile'
 import SingleBook from './components/pages/SingleBook'
 import Favorite from './components/pages/Favorite'
+import ErrorPage from './components/pages/ErrorPage'
 
-const LoginOrSignUp = () => {
-  return (
-    <>
-      {/* <HeaderPage /> */}
-      <LoginPage />
-    </>
-  )
-}
 const Landing = () => {
+  //Landing Page and Header Page combined fr easy render
   return (
     <div>
       <HeaderPage />
@@ -32,17 +26,12 @@ const Landing = () => {
 }
 
 const HandleHome = () => {
+  //Handle Homepage with extra features from the App file
   const { loader, bookList } = useGlobalContext()
-
-  // if (loader) {
-  //   return <Loading />
-  // }
-  // if (bookList.length > 1) {
-  //   return <HomePage />
-  // }
   return <HomePage />
 }
 const App = () => {
+  //App Component to handle all Other Components
   const { signUp, bookRoute } = useGlobalContext()
   return (
     <div className='app'>
@@ -57,9 +46,9 @@ const App = () => {
         <Route path='/auth' element={<LoginPage />} />
         <Route path='/myprofile' element={<MyProfile />} />
         <Route path='/' element={<Landing />} />
-        {/* <Route path='/' element={<LoginPage />} /> */}
+        <Route path='*' element={<ErrorPage />} />
       </Routes>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   )
 }
