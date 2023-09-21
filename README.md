@@ -1,70 +1,114 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# BOOKS WEBSITE
 
-## Available Scripts
+This website is dedicated to providing book enthusiasts with a wide range of genres, recommendations, and reviews. Explore our collection and discover your next favorite book here.
 
-In the project directory, you can run:
 
-### `npm start`
+![Logo](https://alx-books-website.netlify.app/static/media/BOOKS%20(3).f1c99d3054cedfdc331d.png)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Project Landing Page Url: https://abdulsalamasheem.wixsite.com/books-website
+- Project deployed to https://alx-books-website.netlify.app/
+- Blog Post: https://medium.com/@abdulsalamasheem/books-web-app-74fbe3a1a0ea
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+​
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Installation
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Installing this project :
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+  git clone https://github.com/Abasay/alx-books_website_project
 
-### `npm run eject`
+  cd alx-books_website_project
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```
+#initialize by:
+```bash
+  npm install
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#start project by:
+```bash
+  npm start
+```
+    
+## Contributing
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Contributions are always welcome!
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+To get started:
 
-## Learn More
+```bash
+git clone https://github.com/Abasay/alx-books_website_project
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+cd alx-books_website_project
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+#Install with:
+```bash
+npm install
+```
 
-### Code Splitting
+#Start project by:
+```bash
+npm start
+```
+Make a request to this email, to grant access as a contributor:
+```bash
+Email: abdulsalamasheem@gmail.com 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Github: Abasay
+```
 
-### Analyzing the Bundle Size
+Please adhere to this project's `code of conduct`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
+## Authors
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- [@Abasay](https://www.github.com/Abasay)
+- [@TechOgede](https://www.github.com/TechOgede)
+- [@Almiviolad](https://github.com/Almiviolad)
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Features
 
-### Deployment
+- Signing Up
+- Logging in
+- Adding to Favorite
+- Realtime Update of books
+- User's Profile
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 🛠 Languages
+- Reactjs, Javascript, HTML, CSS...
+- Python
+
+
+## Tech Stack
+
+**Client:** Reactjs, SCSS.
+
+**Database:** Google Firebase
+
+
+## Support
+
+For support, email abdulsalamasheem@gmail.com.
+
+
+## Related
+
+Here are some related projects
+
+[Nytimes](https://.nytimes.com).
+
+
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
+
