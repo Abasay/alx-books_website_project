@@ -119,3 +119,134 @@
     }
   }
 }
+
+.best-selling-page {
+  width: 80%;
+  height: fit-content;
+
+  margin: 10px auto;
+  border: 2px solid brown;
+  margin-top: 80px;
+  border-radius: 20px;
+  box-shadow: 0px 0px 15px burlywood;
+  h3 {
+    margin-top: 30px;
+    margin-left: 20px;
+    margin-bottom: 5px;
+    color: brown;
+  }
+  h4 {
+    margin-top: 30px;
+    text-align: center;
+    margin-bottom: 10px;
+    color: brown;
+  }
+  .best-container {
+    h4 {
+      margin-left: 40px;
+      color: rgb(167, 76, 76);
+    }
+    article {
+      padding: 10px;
+      width: 90%;
+      margin: 5px auto;
+      display: flex;
+      flex-wrap: wrap;
+
+      .best-selling-book-list {
+        cursor: pointer;
+        width: auto;
+        margin: 10px auto;
+        padding: 10px;
+        .card {
+          width: 200px;
+          display: inline-block;
+          margin: 10px auto;
+          padding: 10px;
+          height: 315px;
+          border-radius: 5px;
+          transition: all 0.2s ease-in;
+          border: 1px solid burlywood;
+          cursor: pointer;
+          overflow: hidden;
+          .info {
+            .desc {
+              display: -webkit-box;
+              overflow: hidden;
+              -webkit-line-clamp: 3;
+              -webkit-box-orient: vertical;
+              text-align: justify;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.category-page {
+  width: 80%;
+  height: fit-content;
+
+  margin: 10px auto;
+  border: 2px solid brown;
+  margin-top: 80px;
+  border-radius: 20px;
+  box-shadow: 0px 0px 15px burlywood;
+  h3 {
+    margin-top: 30px;
+    margin-left: 20px;
+    margin-bottom: 5px;
+    color: brown;
+  }
+  h4 {
+    margin-top: 30px;
+    text-align: center;
+    margin-bottom: 10px;
+    color: brown;
+  }
+  .category-books {
+    h4 {
+      margin-left: 40px;
+      color: rgb(167, 76, 76);
+    }
+    .category-map {
+      padding: 10px;
+      width: 90%;
+      margin: 5px auto;
+      display: flex;
+      flex-wrap: wrap;
+
+      .category-book-list {
+        cursor: pointer;
+        width: auto;
+        margin: 10px auto;
+        padding: 10px;
+        .card {
+          width: 200px;
+          display: inline-block;
+          margin: 10px auto;
+          padding: 10px;
+          height: 315px;
+          border-radius: 5px;
+          transition: all 0.2s ease-in;
+          border: 1px solid burlywood;
+          cursor: pointer;
+          overflow: hidden;
+          .info {
+            .desc {
+              display: -webkit-box;
+              overflow: hidden;
+              -webkit-line-clamp: 3;
+              -webkit-box-orient: vertical;
+              text-align: justify;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+// @media screen and {
+
+// }

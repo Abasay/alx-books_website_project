@@ -25,7 +25,7 @@ const ErrorPage = () => {
       >
         here
       </span>
-      to go back to home
+      to go back to the homepage
     </div>
   )
 }

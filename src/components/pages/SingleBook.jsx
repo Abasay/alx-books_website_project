@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useGlobalContext } from '../../contexts/contextProvider'
 import { FaHandPointDown } from 'react-icons/fa'
 import './singlebook.scss'
@@ -7,7 +7,7 @@ import ReactLoading from 'react-loading'
 
 const SingleBook = () => {
   //Page to display the details of a book when a book is clicked on
-  const { bookRoute, singleBook, handleFavoriteBooks, loading } =
+  const { bookRoute, singleBook, handleFavoriteBooks, addFavLoading } =
     useGlobalContext()
   const {
     age_group,
@@ -61,7 +61,7 @@ const SingleBook = () => {
         >
           Read Now
         </button>
-        {loading && (
+        {addFavLoading && (
           <div style={{ width: 40, margin: '20px auto' }}>
             <ReactLoading
               type='spinningBubbles'
@@ -90,16 +90,16 @@ const SingleBook = () => {
         </p>
         <p style={{ fontWeight: 600 }}>
           Buy Book <FaHandPointDown size={16} color='brown' />
-          <div className='links'>
+          <span className='links' style={{ display: 'block' }}>
             {buy_links.map((link, index) => {
               return (
-                <div className='buy' key={index}>
+                <span className='buy' key={index} style={{ display: 'block' }}>
                   <span style={{ fontWeight: 500 }}>{link.name}: </span>
                   <a href={link.url}>{link.url}</a>
-                </div>
+                </span>
               )
             })}
-          </div>
+          </span>
         </p>
       </div>
     </div>

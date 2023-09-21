@@ -4,6 +4,8 @@ import './page.scss'
 import { db } from '../../firebase'
 import { useGlobalContext } from '../../contexts/contextProvider'
 import { useNavigate } from 'react-router-dom'
+import Swal from 'sweetalert2'
+import ReactLoading from 'react-loading'
 
 const MyProfile = () => {
   //Profile Page to display user details entered when signing up
@@ -21,8 +23,8 @@ const MyProfile = () => {
   const [profile, setProfile] = useState({})
   setLoginPage(true)
   const fetchProfile = async () => {
-    setLoading(true)
     try {
+      setLoading(true)
       const userEmail = localStorage.getItem('user-email')
       const userId = localStorage.getItem('user-id')
       const docRef = doc(db, userEmail, userId)
@@ -30,14 +32,22 @@ const MyProfile = () => {
       await getDoc(docRef)
         .then((response) => response.data())
         .then((res) => {
+          setLoading(false)
           setProfile(res)
-          console.log(profile)
+          // console.log(profile)
         })
     } catch (error) {
-      console.log(error.message)
+      setLoading(false)
+      Swal.fire({
+        icon: 'Error',
+        title: 'Ooops, fail to fetch!',
+        text: 'Please check your network connectivity and try again!!!',
+        confirmButtonColor: 'burlywood',
+      })
+      // console.log(error.message)
     }
   }
-  console.log(profile)
+  // console.log(profile)
   useEffect(() => {
     fetchProfile()
   }, [])
@@ -46,6 +56,23 @@ const MyProfile = () => {
   return (
     <div style={{ marginTop: '80px' }} className='profile'>
       <h3>Profile</h3>
+      {loading && (
+        <div
+          style={{
+            width: 'fit-content',
+            display: 'block',
+            textAlign: 'center',
+            margin: '0px auto',
+          }}
+        >
+          <ReactLoading
+            type='spinningBubbles'
+            color='burlywood'
+            width={20}
+            height={30}
+          />
+        </div>
+      )}
       <h5>First Name: </h5>
       <p>{first_name}</p>
       <h5> Last Name:</h5>

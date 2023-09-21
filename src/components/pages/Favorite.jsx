@@ -60,8 +60,8 @@ const Favorite = () => {
   const handleDelete = async (id) => {
     const newBooks = userFav.filter((book) => book.id !== id)
 
-    console.log(userId)
-    console.log(id)
+    // console.log(userId)
+    // console.log(id)
     const bookRef = doc(db, userId, id)
 
     Swal.fire({
@@ -114,7 +114,7 @@ const Favorite = () => {
           </p>
           <div className='container'>
             {userFav.length > 0 ? (
-              userFav.map((fav) => {
+              userFav.map((fav, index) => {
                 const {
                   author,
                   title,
@@ -126,7 +126,7 @@ const Favorite = () => {
                   id,
                 } = fav
                 return (
-                  <div className='fav-container'>
+                  <div className='fav-container' key={index}>
                     <div
                       className='img-container'
                       onClick={() => {
