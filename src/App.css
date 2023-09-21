@@ -27,3 +27,9 @@ body {
     height: 0;
   }
 }
+
+@media screen and (max-width: 700px) {
+  .App {
+    font-size: 10px;
+  }
+}
