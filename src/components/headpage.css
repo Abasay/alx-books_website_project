@@ -136,6 +136,43 @@
   position: absolute;
   right: 5px;
 }
+@media screen and (max-width: 500px) {
+  .headerLanding .img-container {
+    flex: 0.9;
+    position: relative;
+  }
+  .headerLanding .navs .navList li {
+    margin: 10px;
+  }
+  .headerLanding .navs .navList .logout {
+    position: relative;
+  }
+  .headerLanding .navs .navList {
+    /* height: 300px; */
+    display: none;
+    /* border-radius: 10px; */
+    /* margin-left: 0; */
+    /* flex-direction: column; */
+  }
+  .headerLanding .navs .navList .first {
+    /* display: inline-block;
+    margin-top: 100px;
+    margin-bottom: 0;
+    width: 100%; */
+  }
+
+  .headerLanding .menu {
+    display: flex;
+    position: absolute;
+    right: 30px;
+    margin-bottom: 10px;
+    flex: 0.1;
+    position: fixed;
+  }
+  .headerLanding .navs .navList #menu {
+    display: block;
+  }
+}
 @media screen and (max-width: 700px) {
   .headerLanding .img-container {
     flex: 0.9;

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './login.css'
 import { useGlobalContext } from '../../contexts/contextProvider'
 import { MdDone } from 'react-icons/md'
+import ReactLoading from 'react-loading'
 
 const LoginPage = () => {
   //The Login Page Component
@@ -17,11 +18,11 @@ const LoginPage = () => {
     tempHandleLogIN,
     handleChangeAuth,
     setLoginPage,
+    loginLoading,
   } = useGlobalContext()
   setLoginPage(false)
 
   const [err, setErr] = useState(false)
-  const [isTyping, setIsTyping] = useState(false)
   const [correct, setCorrect] = useState(false)
   const [passwdErr, setPasswdErr] = useState(false)
 
@@ -50,7 +51,7 @@ const LoginPage = () => {
         setCorrect(false)
       }, 2000)
     }
-  }, [details.password])
+  }, [details.password, details.confirmPassword])
 
   useEffect(() => {
     if (details.password.length < 6) {
@@ -213,6 +214,23 @@ const LoginPage = () => {
                 placeholder='Enter your password'
               />
             </fieldset> */}
+            {loginLoading && (
+              <div
+                style={{
+                  width: 'fit-content',
+                  display: 'block',
+                  textAlign: 'center',
+                  margin: '0px auto',
+                }}
+              >
+                <ReactLoading
+                  type='spinningBubbles'
+                  color='black'
+                  width={30}
+                  height={40}
+                />
+              </div>
+            )}
             {signUp ? (
               <input
                 type='button'

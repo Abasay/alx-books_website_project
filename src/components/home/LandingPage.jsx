@@ -1,57 +1,82 @@
 import React, { useState, useEffect } from 'react'
 import './landing.css'
 import { useGlobalContext } from '../../contexts/contextProvider'
-import { FaQuoteRight, FaQuoteLeft } from 'react-icons/fa'
+import { FaQuoteRight, FaQuoteLeft, FaLeaf } from 'react-icons/fa'
 import { myBooks } from '../../data'
 import Footer from '../footer/Footer'
 import logo from '../../images/Read A Book Motivational Quote Facebook Post.png'
 import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
+import ReactLoading from 'react-loading'
+import Loading from './Loading'
 
 const LandingPage = () => {
   const {
-    loginPage,
+    // loginPage,
     setLoginPage,
-    bookRoute,
-    singleBook,
+    // bookRoute,
+    // singleBook,
     setSingleBook,
     setBookRoute,
-    handleFavoriteBooks,
+    // handleFavoriteBooks,
   } = useGlobalContext()
   const [showText, setShowText] = useState(false)
   const navigate = useNavigate()
-  const fetchBooks = async () => {
-    const params = {
-      mode: 'no-cors',
-      method: 'GET',
-      headers: {
-        accept: 'application/json',
-      },
-    }
-    const google =
-      'https://www.googleapis.com/auth/books/key=AIzaSyCn66yVAJ6u8-JZEBaBV7eX2QB-SwnGhAo'
-    const url =
-      'https://api.nytimes.com/svc/books/v3/lists.json?list=hardcover-fiction&api-key=RUnW3vOenNDvoKKbJ3rMBmGTy6prxnV1'
-
-    const response = await fetch(url)
-      .then((response) => {
-        console.log(response)
-      })
-      .then((res) => {
-        console.log(res)
-      })
-
-    console.log(response)
-  }
+  const [randBook, setRandBook] = useState()
+  const [randnum, setRandNum] = useState(0)
+  const [loading, setLoading] = useState(false)
 
   const accessToken = localStorage.getItem('userAccessToken')
+  const userEmail = localStorage.getItem('user-email')
+  if (accessToken && userEmail) {
+    setLoginPage(true)
+  }
 
   const landinPageSingleBook = (title, obj) => {
     setBookRoute(title)
     setSingleBook(obj)
     navigate(`/book/${title}`)
   }
+  function randomIntFromInterval(min, max) {
+    // min and max included
+    return Math.floor(Math.random() * (max - min + 1) + min)
+  }
 
+  const handleBooksfromBackend = async () => {
+    const randNum = randomIntFromInterval(0, 18)
+    try {
+      setLoading(true)
+      const url =
+        'https://api.nytimes.com/svc/books/v3/lists//full-overview.json?&api-key=RUnW3vOenNDvoKKbJ3rMBmGTy6prxnV1'
+
+      const options = {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+        },
+      }
+      await fetch(url, options)
+        .then((res) => res.json())
+        .then((resp) => {
+          setRandNum(randNum)
+          // console.log(resp)
+          // console.log()
+          return resp.results.lists
+        })
+        .then((res) => {
+          // console.log(res)
+          // console.log(randnum)
+          setRandBook(res[randNum])
+
+          // console.log(randBook)
+          setLoading(false)
+        })
+    } catch (error) {}
+  }
+
+  useEffect(() => {
+    handleBooksfromBackend()
+  }, [])
   return (
     <div className='landing'>
       <div className='landingpage'>
@@ -93,45 +118,66 @@ const LandingPage = () => {
           width={500}
           height={500}
         />
-        <p>Become a reader today</p>
+        <p>Become a reader today!!!</p>
         <button>sign in or create an account</button>
       </div>
       <div className='landing-books'>
-        {myBooks[0].books.map((book, index) => {
-          const {
-            author,
-            book_image,
-            description,
-            title,
-            book_uri,
-            amazon_product_url,
-            rank,
-          } = book
+        {!randBook ? (
+          <div
+            style={{
+              display: 'grid',
+              width: '100%',
+              placeItems: 'center',
+            }}
+          >
+            <ReactLoading
+              type='bars'
+              color='burlywood'
+              height={400}
+              width={200}
+            />
+          </div>
+        ) : (
+          randBook.books.map((book, index) => {
+            const {
+              author,
+              book_image,
+              description,
+              title,
+              book_uri,
+              amazon_product_url,
+              rank,
+            } = book
 
-          return (
-            <div className='landing-book-list'>
-              <div
-                className='card'
-                key={index}
-                onClick={() => landinPageSingleBook(title, book)}
-              >
-                <div className='img-container'>
-                  <img src={book_image} alt={title} width={150} height={200} />
-                </div>
-                <div className='info'>
-                  <h6 style={{ marginTop: '10px' }}>By: {author}</h6>
+            return (
+              <div className='landing-book-list' key={index}>
+                <div
+                  className='card'
+                  onClick={() => landinPageSingleBook(title, book)}
+                >
+                  <div className='img-container'>
+                    <img
+                      src={book_image}
+                      alt={title}
+                      width={150}
+                      height={200}
+                    />
+                  </div>
+                  <div className='info'>
+                    <h6 style={{ marginTop: '10px' }}>By: {author}</h6>
 
-                  <p
-                    className='desc'
-                    style={{ fontSize: '12px', marginTop: '10px' }}
-                  >
-                    {description ? description : amazon_product_url}
-                  </p>
+                    <p
+                      className='desc'
+                      style={{ fontSize: '12px', marginTop: '10px' }}
+                    >
+                      {description ? description : amazon_product_url}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          )
-        })}
+            )
+          })
+        )}
       </div>
     </div>
   )

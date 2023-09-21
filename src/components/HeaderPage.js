@@ -68,10 +68,15 @@ const HeaderPage = () => {
                     />
                   </li>
 
-                  <li className='first' onClick={handleBooks}>
+                  <li onClick={() => navigate('/')}>
                     {/* <AiFillHome size={22} /> */}
                     <span>Home</span>
                   </li>
+                  <li className='first' onClick={handleBooks}>
+                    {/* <AiFillHome size={22} /> */}
+                    <span>Library</span>
+                  </li>
+
                   <li onClick={navToProfile}>
                     {/* <AiFillProfile size={22} /> */}
                     <span>My Profile</span>

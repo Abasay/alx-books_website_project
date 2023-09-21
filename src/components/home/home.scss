@@ -3,6 +3,120 @@
   width: 80%;
   margin: 10px auto;
   margin-top: 50px;
+
+  .library-header {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin: 10px auto;
+    justify-content: center;
+
+    .lib-headers {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      h2 {
+        flex: 1;
+      }
+      h3 {
+        float: right;
+      }
+    }
+
+    h3 {
+      float: right;
+    }
+    p {
+      position: relative;
+    }
+    .filter {
+      float: right;
+      position: fixed;
+      right: 0;
+      margin-top: 40px;
+      cursor: pointer;
+      width: 400px;
+
+      .hide {
+        display: none;
+      }
+      .category-list {
+        background-color: rgb(242, 213, 176);
+        cursor: default;
+        margin-top: 15px;
+        width: fit-content;
+        border-radius: 10px;
+        border-top-left-radius: 0px;
+        height: 200px;
+        overflow: auto;
+        ul:nth-child(1) {
+          margin-top: 10px;
+        }
+        ul {
+          padding: 10px;
+
+          li {
+            list-style: none;
+            padding: 5px;
+            transition: all 0.2s ease-in;
+            border-radius: 5px;
+            &:hover {
+              background-color: burlywood;
+            }
+          }
+        }
+      }
+      .filter-container {
+        display: flex;
+        width: 400px;
+        flex-direction: row;
+        float: left;
+
+        right: 0px;
+        top: 40px;
+        border-radius: 10px;
+        border-bottom-left-radius: 0;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0px;
+        padding: 10px;
+        background-color: bisque;
+        justify-content: space-between;
+        p {
+          position: absolute;
+          right: 0px;
+          top: 3px;
+        }
+
+        button {
+          margin-top: 15px;
+          background-color: rgb(248, 229, 204);
+          border-radius: 5px;
+          flex: 0.7;
+          text-align: center;
+          justify-content: center;
+          border: 2px solid;
+          border-color: burlywood;
+          padding: 5px;
+          padding-top: 0px;
+
+          &:hover {
+            background-color: burlywood;
+          }
+
+          .btn-text {
+            padding-top: 10px;
+          }
+          .drop {
+            display: inline-block;
+            padding: 5px;
+          }
+        }
+      }
+      .hide {
+        visibility: hidden;
+      }
+    }
+  }
   .head-list {
     article {
       margin-top: 20px;
@@ -13,7 +127,7 @@
         flex-direction: row;
 
         overflow: auto;
-        height: 290px;
+        height: 300px;
         margin-top: 10px;
         .card {
           margin-left: 20px;
@@ -22,8 +136,9 @@
           margin-top: 10px;
           border-radius: 10px;
           height: 260px;
+
           border: 1px solid burlywood;
-          transition: all 0.3s ease-in;
+          transition: all 0.2s ease-in;
 
           &:hover {
             box-shadow: 0px 0px 15px burlywood;

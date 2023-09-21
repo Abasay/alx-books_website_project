@@ -95,3 +95,32 @@
   -webkit-line-clamp: $number;
   -webkit-box-orient: vertical;
 } */
+@media screen and (max-width: 700px) {
+  .landing .another {
+    font-size: 10px;
+    height: 300px;
+    width: 80%;
+    display: flex;
+    margin: 10px auto;
+    border: 2px solid burlywood;
+    border-radius: 15px;
+    background-color: rgba(215, 185, 145, 0.1);
+  }
+
+  .landing .another img {
+    border-radius: 10px;
+    /* flex: 0.7; */
+    width: 70%;
+    height: 100%;
+    border-radius: 15px;
+    padding-right: 50px;
+  }
+
+  .landing .another p {
+    font-weight: 600;
+    margin-top: 200px;
+  }
+  .landing .another button {
+    font-size: 10px;
+  }
+}
