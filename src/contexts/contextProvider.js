@@ -33,11 +33,17 @@ export const ContextProvider = ({ children }) => {
   const [loader, setLoader] = useState(true)
   const [loading, setLoading] = useState(false)
   const [loginPage, setLoginPage] = useState(false)
+  const [addFavLoading, setAddFavLoading] = useState(false)
   const [signedIn, setSignedIn] = useState(false)
   const [favorite, setFavorite] = useState('')
   const [singleBook, setSingleBook] = useState({})
   const [bookRoute, setBookRoute] = useState('')
   const [usersFavorite, setUsersFavorite] = useState([])
+  const [bestSelling, setBestSelling] = useState([])
+  const [fetchNav, setFetchNav] = useState('')
+  const [loginLoading, setLoginLoading] = useState(false)
+  const [category, setCategory] = useState([])
+  const [categoryNav, setCategoryNav] = useState('')
 
   //Assigning the useNavigate to a variable
   const navigate = useNavigate()
@@ -81,7 +87,7 @@ export const ContextProvider = ({ children }) => {
     //Function to add to favorite and also check if book is already added or not
     const accessToken = localStorage.getItem('userAccessToken')
     try {
-      setLoading(true)
+      setAddFavLoading(true)
       if (accessToken) {
         const userId = localStorage.getItem('book-user-id')
         const querySnapshot = await getDocs(collection(db, userId))
@@ -100,7 +106,7 @@ export const ContextProvider = ({ children }) => {
           await setDoc(newBookRef, { ...bookObj, id: newBookRef.id })
           sweetAlert('success', 'success', 'Book added to Favrite')
         }
-        setLoading(false)
+        setAddFavLoading(false)
       } else {
         Swal.fire({
           title: 'Ooops, Sorry...',
@@ -124,8 +130,8 @@ export const ContextProvider = ({ children }) => {
       }
     } catch (error) {
       //error function
-      setLoading(false)
-      sweetAlert('error', 'Network Error', 'Please try again')
+      setAddFavLoading(false)
+      sweetAlert('error', 'Network Error', 'Kindly logout and try again!!!')
     }
   }
 
@@ -143,11 +149,11 @@ export const ContextProvider = ({ children }) => {
       setTimeout(() => {
         setUsersFavorite(result)
         setLoader(false)
-        console.log(usersFavorite)
+        // console.log(usersFavorite)
       }, 5000)
     } catch (error) {
       setLoader(false)
-      console.log(error.message)
+      // console.log(error.message)
     }
   }
 
@@ -170,10 +176,11 @@ export const ContextProvider = ({ children }) => {
   }
   const handleLogout = () => {
     //Function to handle the logging out our users
+    auth.signOut()
     sweetAlert(
       'success',
       'Logged Out',
-      'Bye, kindly login again to continue your explore!!!'
+      'Bye, kindly login to continue to add books to favorites and access more features!!!'
     )
     setLoginPage(false)
     setHeader(false)
@@ -186,8 +193,8 @@ export const ContextProvider = ({ children }) => {
     }, 3000)
   }
   const handleBooks = () => {
-    // navigate to home
-    navigate('/home')
+    // navigate to library
+    navigate('/library')
   }
 
   const handleSignIn = async () => {
@@ -200,6 +207,7 @@ export const ContextProvider = ({ children }) => {
       details.phone_number &&
       details.password === details.confirmPassword
     ) {
+      setLoginLoading(true)
       auth
         .createUserWithEmailAndPassword(details.email, details.password)
         .then(
@@ -211,6 +219,7 @@ export const ContextProvider = ({ children }) => {
               'userAccessToken',
               user.multiFactor.user.accessToken
             )
+            setLoginLoading(false)
             if (user.multiFactor.user.uid) {
               setSignUp((signUp) => !signUp)
               setHeader(true)
@@ -221,18 +230,19 @@ export const ContextProvider = ({ children }) => {
                 'Login successful',
                 'We wish you a wonderful explore'
               )
-              navigate('/home')
+              navigate('/library')
             } else {
               sweetAlert('error', 'Ooops', 'Please try again')
               navigate('/auth')
             }
-            console.log(user) // Optional
+            // console.log(user) // Optional
           },
           function (error) {
             // Handle Errors here.
+            setLoginLoading(false)
             var errorCode = error.code
             var errorMessage = error.message
-            console.log(errorMessage)
+            // console.log(errorMessage)
             // setError(true)
             // setErrorMsg(errorMessage)
             setError(true)
@@ -295,6 +305,7 @@ export const ContextProvider = ({ children }) => {
   const handleLogin = () => {
     //Handle Logging users in
     if (details.email && details.password) {
+      setLoginLoading(true)
       auth
         .signInWithEmailAndPassword(details.email, details.password)
         .then((user) => {
@@ -306,10 +317,11 @@ export const ContextProvider = ({ children }) => {
           )
           localStorage.setItem('book-user-id', user.multiFactor.user.uid)
           localStorage.setItem('user-email', user.multiFactor.user.email)
-          console.log(user.multiFactor.user.uid)
+          // console.log(user.multiFactor.user.uid)
 
-          console.log(user)
+          // console.log(user)
           localStorage.setItem('book-user-id', user.multiFactor.user.uid)
+          setLoginLoading(false)
           if (user.multiFactor.user.uid) {
             setSignUp((signUp) => !signUp)
             setHeader(true)
@@ -321,13 +333,15 @@ export const ContextProvider = ({ children }) => {
               'Login successful',
               'We wish you a wonderful explore'
             )
-            navigate('/home')
+            navigate('/library')
           } else {
             sweetAlert('error', 'Ooops...', 'Please try again')
             navigate('/auth')
           }
         })
         .catch((error) => {
+          setLoginLoading(false)
+
           setError(true)
           function errorChoice() {
             switch (error.code) {
@@ -382,6 +396,12 @@ export const ContextProvider = ({ children }) => {
   useEffect(() => {
     setBookRoute(bookRoute)
   }, [bookRoute])
+  useEffect(() => {
+    setAddFavLoading(addFavLoading)
+  }, [addFavLoading])
+  // useEffect(() => {
+  //   setLoginPage(loginPage)
+  // }, [loginPage])
   return (
     <GlobalContext.Provider
       value={{
@@ -416,6 +436,16 @@ export const ContextProvider = ({ children }) => {
         navToFavorite,
         setUsersFavorite,
         setBookList,
+        fetchNav,
+        setFetchNav,
+        bestSelling,
+        setBestSelling,
+        loginLoading,
+        category,
+        setCategory,
+        categoryNav,
+        setCategoryNav,
+        addFavLoading,
       }}
     >
       {children}
